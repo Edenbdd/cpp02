@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/14 16:43:02 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:10:18 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ Fixed::Fixed(Fixed const &src)
 Fixed::Fixed(int const n)
 {
     std::cout << "Int constructor called" << std::endl;
+    std::cout << "n is: " << n <<   std::endl;
     this->_nb = n;
+    std::cout << "nb is: " << this->_nb <<   std::endl;
     return ;
 }
 
 Fixed::Fixed(float const f)
 {
     std::cout << "Float constructor called" << std::endl;
-    this->_nb = f;
+    std::cout << "f is: " << f <<   std::endl; 
+    this->_nb = roundf(f * (2^this->_bits));
+    std::cout << "nb is: " << this->_nb <<   std::endl;
     return ;
 }
 
@@ -59,7 +63,10 @@ void	Fixed::setRawBits(int const raw)
 
 float   Fixed::toFloat(void) const
 {
-    return (this->_nb);
+    float   result;
+    
+    result = (this->_nb / (2^this->_bits));
+    return (result);
 }
 
 
@@ -79,6 +86,8 @@ Fixed	&Fixed::operator=(Fixed const &to_assign)
 
 std::ostream    &operator<<(std::ostream &o, Fixed const &to_print)
 {
-    o << to_print.toFloat();
+    o << "With float: " << to_print.toFloat() << std::endl;
+    
+    o << to_print.toInt();
     return (o);
 }
