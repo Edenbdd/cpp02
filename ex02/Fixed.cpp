@@ -6,12 +6,13 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 12:17:13 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:07:14 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
+/*CANONICAL*/////////////////////////////////////////////////
 Fixed::Fixed():_nb(0)
 {
     std::cout << "Default constructor called" << std::endl;
@@ -44,7 +45,7 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
     return ;
 }
-
+/*GET & SET*/////////////////////////////////////////////////
 int Fixed::getRawBits(void) const
 {
     std::cout << "getRawBits member function called" << std::endl;
@@ -56,6 +57,154 @@ void	Fixed::setRawBits(int const raw)
     this->_nb = raw;
     return ;
 }
+/*OPERATORS*///////////////////////////////////////////////////////////
+
+Fixed	&Fixed::operator=(Fixed const &to_assign)
+{
+    std::cout << "Copy assignment operator called" << std::endl;
+    if (this != &to_assign)
+        this->_nb = to_assign._nb;
+    return (*this);
+}
+
+bool    Fixed::operator>(Fixed const &rhs) const
+{
+    if ((this->toFloat() - rhs.toFloat()) > EPSILON)
+        return (true);
+    return (false);
+}
+
+bool	Fixed::operator<(Fixed const &rhs) const
+{
+    if ((rhs.toFloat()) - this->toFloat() > EPSILON)
+        return (true);
+    return (false);
+}
+
+bool	Fixed::operator>=(Fixed const &rhs) const
+{
+    if ((this->toFloat() - rhs.toFloat()) > EPSILON
+        || (this->toFloat() - rhs.toFloat() < EPSILON 
+        && this->toFloat() - rhs.toFloat() > 0)
+        || (this->toFloat() - rhs.toFloat() == 0))
+        return (true);
+    return (false);
+}
+
+bool	Fixed::operator<=(Fixed const &rhs) const
+{
+    if ((rhs.toFloat() - this->toFloat()) > EPSILON
+    || (rhs.toFloat() - this->toFloat() < EPSILON
+    && rhs.toFloat() - this->toFloat() > 0)
+    || (this->toFloat() - rhs.toFloat() == 0))
+        return (true);
+    return (false);
+}
+
+bool	Fixed::operator==(Fixed const &rhs)  const
+{
+    if ((rhs.toFloat() - this->toFloat() < EPSILON
+    && rhs.toFloat() - this->toFloat() > 0)
+    || (this->toFloat() - rhs.toFloat() == 0))
+        return (true);
+    return (false);
+}
+
+bool	Fixed::operator!=(Fixed const &rhs) const
+{
+    if (rhs.toFloat() - this->toFloat() > EPSILON
+    || (this->toFloat() - rhs.toFloat() < 0))
+        return (true);
+    return (false);
+}
+
+Fixed	&Fixed::operator+(Fixed const &rhs)
+{
+    float   result;
+
+    result = this->toFloat() + rhs.toFloat();
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator-(Fixed const &rhs)
+{
+    float   result;
+
+    result = this->toFloat() - rhs.toFloat();
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator*(Fixed const &rhs)
+{
+    float   result;
+
+    result = this->toFloat() * rhs.toFloat();
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator/(Fixed const &rhs)
+{
+    float   result;
+
+    result = this->toFloat() / rhs.toFloat();
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator++(void)
+{
+    float   result;
+
+    result = this->toFloat() + 1;
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator++(int unit)
+{
+    float   result;
+
+    result = this->toFloat() + unit;
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator--(void)
+{
+    float   result;
+
+    result = this->toFloat() - 1;
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator++(int unit)
+{
+    float   result;
+
+    result = this->toFloat() + unit;
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+std::ostream    &operator<<(std::ostream &o, Fixed const &to_print)
+{
+    o << to_print.toFloat();
+    return (o);
+}
+
+/*PUBLICS FUNCTIONS*/////////////////////////////////////////////////
 
 float   Fixed::toFloat(void) const
 {
@@ -74,78 +223,34 @@ int     Fixed::toInt(void) const
     return (result);
 }
 
-
-Fixed	&Fixed::operator=(Fixed const &to_assign)
+Fixed  &Fixed::min(Fixed &a, Fixed &b)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &to_assign)
-        this->_nb = to_assign._nb;
-    return (*this);
+    if (a <= b)
+        return (a);
+    else
+        return (b);
 }
 
-Fixed	&Fixed::operator>(Fixed const &rhs)
+Fixed const  &Fixed::min(Fixed const &a, Fixed const &b)
 {
-    
+    if (a <= b)
+        return (a);
+    else
+        return (b);
 }
 
-Fixed	&Fixed::operator<(Fixed const &rhs)
+Fixed  &Fixed::max(Fixed &a, Fixed &b)
 {
-
+    if (a >= b)
+        return (a);
+    else
+        return (b);
 }
 
-Fixed	&Fixed::operator>=(Fixed const &rhs)
+Fixed const  &Fixed::max(Fixed const &a, Fixed const &b)
 {
-
-}
-
-Fixed	&Fixed::operator<=(Fixed const &rhs)
-{
-    
-}
-
-Fixed	&Fixed::operator==(Fixed const &rhs)
-{
-    
-}
-Fixed	&Fixed::operator!=(Fixed const &rhs)
-{
-    
-}
-Fixed	&Fixed::operator+(Fixed const &rhs)
-{
-    
-}
-Fixed	&Fixed::operator-(Fixed const &rhs)
-{
-    
-}
-Fixed	&Fixed::operator*(Fixed const &rhs)
-{
-    
-}
-Fixed	&Fixed::operator/(Fixed const &rhs)
-{
-    
-}
-Fixed	&Fixed::operator++(void)
-{
-    
-}
-Fixed	&Fixed::operator++(void)
-{
-    
-}
-Fixed	&Fixed::operator--(void)
-{
-    
-}
-Fixed	&Fixed::operator--(void)
-{
-    
-}
-
-std::ostream    &operator<<(std::ostream &o, Fixed const &to_print)
-{
-    o << to_print.toFloat();
-    return (o);
+    if (a >= b)
+        return (a);
+    else
+        return (b);
 }

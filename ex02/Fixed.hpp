@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:48 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 12:11:07 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:00:43 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <cmath>
 
+#define EPSILON  	1.1929093e-7
+
 class Fixed
 {
     public:
@@ -24,25 +26,30 @@ class Fixed
         Fixed(int const n);
         Fixed(float const f);
         ~Fixed();
-        int		getRawBits(void) const;
-        void	setRawBits(int const raw);
-        Fixed	&operator=(Fixed const &rhs);
-        Fixed	&operator>(Fixed const &rhs);
-        Fixed	&operator<(Fixed const &rhs);
-        Fixed	&operator>=(Fixed const &rhs);
-        Fixed	&operator<=(Fixed const &rhs);
-        Fixed	&operator==(Fixed const &rhs);
-        Fixed	&operator!=(Fixed const &rhs);
-        Fixed	&operator+(Fixed const &rhs);
-        Fixed	&operator-(Fixed const &rhs);
-        Fixed	&operator*(Fixed const &rhs);
-        Fixed	&operator/(Fixed const &rhs);
-        Fixed	&operator++(Fixed const &rhs);
-        Fixed	&operator++(Fixed const &lhs);
-        Fixed	&operator--(Fixed const &rhs);
-        Fixed	&operator--(Fixed const &lhs);
-        float   toFloat( void ) const;
-        int     toInt( void ) const;
+        int		            getRawBits(void) const;
+        void	            setRawBits(int const raw);
+        Fixed               &operator=(Fixed const &rhs);
+        bool	            operator>(Fixed const &rhs) const;
+        bool	            operator<(Fixed const &rhs) const;
+        bool	            operator>=(Fixed const &rhs) const;
+        bool	            operator<=(Fixed const &rhs) const;
+        bool	            operator==(Fixed const &rhs) const;
+        bool	            operator!=(Fixed const &rhs) const;
+        Fixed	            &operator+(Fixed const &rhs);
+        Fixed	            &operator-(Fixed const &rhs);
+        Fixed	            &operator*(Fixed const &rhs);
+        Fixed	            &operator/(Fixed const &rhs);
+        Fixed	            &operator++(void);
+        Fixed	            &operator++(int one);
+        Fixed	            &operator--(void);
+        Fixed	            &operator--(int one);
+        float               toFloat( void ) const;
+        int                 toInt( void ) const;
+        Fixed static        &min(Fixed &a, Fixed &b);
+        Fixed static const  &min(Fixed const &a, Fixed const &b);
+        Fixed static        &max(Fixed &a, Fixed &b);
+        Fixed static const  &max(Fixed const &a, Fixed const &b);
+
     private:
         int					_nb;
         static const int	_bits = 8;
