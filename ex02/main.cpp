@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:38:18 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 14:07:59 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:35:59 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int main(void)
     std::cout << a << std::endl;
     std::cout << ++a << std::endl;
     std::cout << a << std::endl;
-    std::cout << a++ << std::endl;
-    std::cout << a << std::endl;
+    std::cout << a++ << std::endl; //this returns trash
+    std::cout << a << std::endl; //this is not up to date
 
     std::cout << b << std::endl;
 

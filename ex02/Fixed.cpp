@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 14:10:38 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:06:28 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,24 +178,26 @@ Fixed	&Fixed::operator--(void)
     return (*this);
 }
 
-Fixed	&Fixed::operator--(int unit)
+Fixed	&Fixed::operator--(int)
 {
+    static Fixed   temp = *this;
     float   result;
 
-    result = this->toFloat() - unit;
-    Fixed   to_return(result);
-    this->_nb = to_return._nb;
-    return (*this);
+    result = this->toFloat() - EPSILON;
+    Fixed   fixed_result(result);
+    *this = fixed_result;
+    return (temp);
 }
 
-Fixed	&Fixed::operator++(int unit)
+Fixed	&Fixed::operator++(int)
 {
+    static Fixed   temp = *this;
     float   result;
 
-    result = this->toFloat() + unit;
-    Fixed   to_return(result);
-    this->_nb = to_return._nb;
-    return (*this);
+    result = this->toFloat() + EPSILON;
+    Fixed   fixed_result(result);
+    *this = fixed_result;
+    return (temp);
 }
 
 std::ostream    &operator<<(std::ostream &o, Fixed const &to_print)
