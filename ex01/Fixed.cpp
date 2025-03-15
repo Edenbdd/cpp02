@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/14 18:10:18 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 11:28:33 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Fixed::Fixed(int const n)
 Fixed::Fixed(float const f)
 {
     std::cout << "Float constructor called" << std::endl;
-    std::cout << "f is: " << f <<   std::endl; 
+    std::cout << "f is: " << f <<   std::endl;
     this->_nb = roundf(f * (2^this->_bits));
     std::cout << "nb is: " << this->_nb <<   std::endl;
     return ;
@@ -65,7 +65,7 @@ float   Fixed::toFloat(void) const
 {
     float   result;
     
-    result = (this->_nb / (2^this->_bits));
+    result = ((float)this->_nb / (2^this->_bits));
     return (result);
 }
 
