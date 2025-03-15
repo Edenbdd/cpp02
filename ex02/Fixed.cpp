@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 15:14:54 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:16:40 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,110 +69,77 @@ Fixed	&Fixed::operator=(Fixed const &to_assign)
 
 bool    Fixed::operator>(Fixed const &rhs) const
 {
-    if ((this->toFloat() - rhs.toFloat()) > EPSILON)
-        return (true);
-    return (false);
+    return (this->toFloat() > rhs.toFloat());
 }
 
 bool	Fixed::operator<(Fixed const &rhs) const
 {
-    if ((rhs.toFloat()) - this->toFloat() > EPSILON)
-        return (true);
-    return (false);
+    return (this->toFloat() < rhs.toFloat());
 }
 
 bool	Fixed::operator>=(Fixed const &rhs) const
 {
-    if ((this->toFloat() - rhs.toFloat()) > EPSILON
-        || (this->toFloat() - rhs.toFloat() < EPSILON 
-        && this->toFloat() - rhs.toFloat() > 0)
-        || (this->toFloat() - rhs.toFloat() == 0))
-        return (true);
-    return (false);
+    return (this->toFloat() >= rhs.toFloat());
 }
 
 bool	Fixed::operator<=(Fixed const &rhs) const
 {
-    if ((rhs.toFloat() - this->toFloat()) > EPSILON
-    || (rhs.toFloat() - this->toFloat() < EPSILON
-    && rhs.toFloat() - this->toFloat() > 0)
-    || (this->toFloat() - rhs.toFloat() == 0))
-        return (true);
-    return (false);
+    return (this->toFloat() <= rhs.toFloat());
 }
 
 bool	Fixed::operator==(Fixed const &rhs)  const
 {
-    if ((rhs.toFloat() - this->toFloat() < EPSILON
-    && rhs.toFloat() - this->toFloat() > 0)
-    || (this->toFloat() - rhs.toFloat() == 0))
-        return (true);
-    return (false);
+    return (this->toFloat() == rhs.toFloat());
 }
 
 bool	Fixed::operator!=(Fixed const &rhs) const
 {
-    if (rhs.toFloat() - this->toFloat() > EPSILON
-    || (this->toFloat() - rhs.toFloat() < 0))
-        return (true);
-    return (false);
+    return (this->toFloat() != rhs.toFloat());
 }
 
-Fixed	&Fixed::operator+(Fixed const &rhs)
+Fixed	Fixed::operator+(Fixed const &rhs)
 {
-    Fixed   to_return(this->toFloat() + rhs.toFloat());
-    *this = to_return;
+    return (Fixed(this->toFloat() + rhs.toFloat()));
+}
+
+Fixed	Fixed::operator-(Fixed const &rhs)
+{
+    return (Fixed(this->toFloat() - rhs.toFloat()));
+}
+
+Fixed	Fixed::operator*(Fixed const &rhs)
+{
+    return (Fixed(this->toFloat() * rhs.toFloat()));
+}
+
+Fixed	Fixed::operator/(Fixed const &rhs)
+{
+    return (Fixed(this->toFloat() / rhs.toFloat()));
+}
+
+Fixed	Fixed::operator++(void)
+{
+    this->_nb += 1;
     return (*this);
 }
 
-Fixed	&Fixed::operator-(Fixed const &rhs)
+Fixed	Fixed::operator--(void)
 {
-    Fixed   to_return(this->toFloat() - rhs.toFloat());
-    *this = to_return;
+    this->_nb -= 1;
     return (*this);
 }
 
-Fixed	&Fixed::operator*(Fixed const &rhs)
+Fixed	Fixed::operator--(int)
 {
-    Fixed   to_return(this->toFloat() * rhs.toFloat());
-    *this = to_return;
-    return (*this);
-}
-
-Fixed	&Fixed::operator/(Fixed const &rhs)
-{
-    Fixed   to_return(this->toFloat() / rhs.toFloat());
-    *this = to_return;
-    return (*this);
-}
-
-Fixed	&Fixed::operator++(void)
-{
-    Fixed   to_return((float)(this->toFloat() + EPSILON));
-    *this = to_return;
-    return (*this);
-}
-
-Fixed	&Fixed::operator--(void)
-{
-    Fixed   to_return((float)(this->toFloat() - EPSILON));
-    *this = to_return;
-    return (*this);
-}
-
-Fixed	&Fixed::operator--(int)
-{
-    static Fixed   temp = *this;
-    Fixed   fixed_result((float)(this->toFloat() - EPSILON));
-    *this = fixed_result;
+    Fixed   temp = *this;
+    this->_nb -= 1;
     return (temp);
 }
 
-Fixed	&Fixed::operator++(int)
+Fixed	Fixed::operator++(int)
 {
-    static Fixed   temp = *this;
-    Fixed   fixed_result((float)(this->toFloat() + EPSILON));
-    *this = fixed_result;
+    Fixed   temp = *this;
+    this->_nb += 1;
     return (temp);
 }
 

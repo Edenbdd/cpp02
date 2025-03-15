@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:48 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 14:49:07 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:55:07 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 #include <iostream>
 #include <cmath>
-
-#define EPSILON  	0.00390625
 
 class Fixed
 {
@@ -35,14 +33,14 @@ class Fixed
         bool	            operator<=(Fixed const &rhs) const;
         bool	            operator==(Fixed const &rhs) const;
         bool	            operator!=(Fixed const &rhs) const;
-        Fixed	            &operator+(Fixed const &rhs);
-        Fixed	            &operator-(Fixed const &rhs);
-        Fixed	            &operator*(Fixed const &rhs);
-        Fixed	            &operator/(Fixed const &rhs);
-        Fixed	            &operator++(void);
-        Fixed	            &operator++(int);
-        Fixed	            &operator--(void);
-        Fixed	            &operator--(int);
+        Fixed	            operator+(Fixed const &rhs);
+        Fixed	            operator-(Fixed const &rhs);
+        Fixed	            operator*(Fixed const &rhs);
+        Fixed	            operator/(Fixed const &rhs);
+        Fixed	            operator++(void);
+        Fixed	            operator++(int);
+        Fixed	            operator--(void);
+        Fixed	            operator--(int);
         float               toFloat( void ) const;
         int                 toInt( void ) const;
         Fixed static        &min(Fixed &a, Fixed &b);
