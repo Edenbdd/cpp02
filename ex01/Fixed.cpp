@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 11:28:33 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 11:55:12 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,14 @@ Fixed::Fixed(Fixed const &src)
 Fixed::Fixed(int const n)
 {
     std::cout << "Int constructor called" << std::endl;
-    std::cout << "n is: " << n <<   std::endl;
-    this->_nb = n;
-    std::cout << "nb is: " << this->_nb <<   std::endl;
+    this->_nb = n << this->_bits;
     return ;
 }
 
 Fixed::Fixed(float const f)
 {
     std::cout << "Float constructor called" << std::endl;
-    std::cout << "f is: " << f <<   std::endl;
-    this->_nb = roundf(f * (2^this->_bits));
-    std::cout << "nb is: " << this->_nb <<   std::endl;
+    this->_nb = roundf(f * (1 << this->_bits));
     return ;
 }
 
@@ -65,14 +61,17 @@ float   Fixed::toFloat(void) const
 {
     float   result;
     
-    result = ((float)this->_nb / (2^this->_bits));
+    result = ((float)this->_nb / (1 << this->_bits));
     return (result);
 }
 
 
 int     Fixed::toInt(void) const
 {
-    return (this->_nb);
+    int result;
+
+    result = this->_nb >> this->_bits;
+    return (result);
 }
 
 
@@ -86,8 +85,6 @@ Fixed	&Fixed::operator=(Fixed const &to_assign)
 
 std::ostream    &operator<<(std::ostream &o, Fixed const &to_print)
 {
-    o << "With float: " << to_print.toFloat() << std::endl;
-    
-    o << to_print.toInt();
+    o << to_print.toFloat();
     return (o);
 }

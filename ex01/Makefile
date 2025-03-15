@@ -6,7 +6,7 @@
 #    By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/02 15:29:44 by aubertra          #+#    #+#              #
-#    Updated: 2025/03/14 15:45:37 by aubertra         ###   ########.fr        #
+#    Updated: 2025/03/15 11:38:43 by aubertra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -g3 -std=c++98
 
-NAME = ./fixednb
+NAME = ./ex01
 
 SRCS =  main.cpp\
 		Fixed.cpp\
