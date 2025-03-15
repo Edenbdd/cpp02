@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:39:38 by aubertra          #+#    #+#             */
-/*   Updated: 2025/03/15 14:07:14 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:10:38 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,40 @@
 /*CANONICAL*/////////////////////////////////////////////////
 Fixed::Fixed():_nb(0)
 {
-    std::cout << "Default constructor called" << std::endl;
+    // std::cout << "Default constructor called" << std::endl;
     return ;
 }
 
 Fixed::Fixed(Fixed const &src)
 {
-    std::cout << "Copy constructor called" << std::endl;
+    // std::cout << "Copy constructor called" << std::endl;
     *this = src;
     return ;
 }
 
 Fixed::Fixed(int const n)
 {
-    std::cout << "Int constructor called" << std::endl;
+    // std::cout << "Int constructor called" << std::endl;
     this->_nb = n << this->_bits;
     return ;
 }
 
 Fixed::Fixed(float const f)
 {
-    std::cout << "Float constructor called" << std::endl;
+    // std::cout << "Float constructor called" << std::endl;
     this->_nb = roundf(f * (1 << this->_bits));
     return ;
 }
 
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << std::endl;
+    // std::cout << "Destructor called" << std::endl;
     return ;
 }
 /*GET & SET*/////////////////////////////////////////////////
 int Fixed::getRawBits(void) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
+    // std::cout << "getRawBits member function called" << std::endl;
     return (this->_nb);
 }
 
@@ -61,7 +61,7 @@ void	Fixed::setRawBits(int const raw)
 
 Fixed	&Fixed::operator=(Fixed const &to_assign)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
+    // std::cout << "Copy assignment operator called" << std::endl;
     if (this != &to_assign)
         this->_nb = to_assign._nb;
     return (*this);
@@ -162,17 +162,7 @@ Fixed	&Fixed::operator++(void)
 {
     float   result;
 
-    result = this->toFloat() + 1;
-    Fixed   to_return(result);
-    this->_nb = to_return._nb;
-    return (*this);
-}
-
-Fixed	&Fixed::operator++(int unit)
-{
-    float   result;
-
-    result = this->toFloat() + unit;
+    result = this->toFloat() + EPSILON;
     Fixed   to_return(result);
     this->_nb = to_return._nb;
     return (*this);
@@ -182,7 +172,17 @@ Fixed	&Fixed::operator--(void)
 {
     float   result;
 
-    result = this->toFloat() - 1;
+    result = this->toFloat() - EPSILON;
+    Fixed   to_return(result);
+    this->_nb = to_return._nb;
+    return (*this);
+}
+
+Fixed	&Fixed::operator--(int unit)
+{
+    float   result;
+
+    result = this->toFloat() - unit;
     Fixed   to_return(result);
     this->_nb = to_return._nb;
     return (*this);
